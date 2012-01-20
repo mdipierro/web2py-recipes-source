@@ -1,0 +1,25 @@
+server {
+        listen          80;
+        server_name     $hostname;
+        location ~* /(\w+)/static/ {
+           root /home/www-data/web2py/applications/;
+        }
+         location / {
+                uwsgi_pass      127.0.0.1:9001;
+                include         uwsgi_params;
+        }
+}
+
+server {
+        listen          443;
+        server_name     $hostname;
+        ssl                     on;
+        ssl_certificate         /etc/nginx/ssl/web2py.crt;
+        ssl_certificate_key     /etc/nginx/ssl/web2py.key;
+        location / {
+                uwsgi_pass      127.0.0.1:9001;
+                include         uwsgi_params;
+                uwsgi_param     UWSGI_SCHEME $scheme;
+        }
+}
+ 

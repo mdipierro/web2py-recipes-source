@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Ajax User Validation with web2py by Martin Sagastume</title>
+    <style type="text/css">
+    <!--
+    body { font-family:Arial,Verdana,Sans-serif; }
+
+    input[type=text]{
+        font-size:12px;
+        color:#666666;
+        background-color:#ffffff;
+        padding-top:5px;
+        width:200px;
+        height:20px;
+        border:1px solid #999999;
+    }
+
+    #resultbox { font-size:11px; }
+    .msg { color:blue; }
+    .success { color:green; }
+    .error { color:red; }
+    //-->
+    </style>
+    <script type="text/javascript" src="{{=URL(c='static/js',f='jquery.js')}}"></script>
+    <script type="text/javascript">
+
+    var submit = false;
+    jQuery(document).ready(function(){
+        jQuery("form").submit(function() {
+            return submit;
+        });
+    });
+
+    function getData(value){
+        if(value != ""){
+            jQuery("#resultbox").removeClass().addClass('msg').text('Validating...').fadeIn(100);
+            jQuery.post("{{=URL('ajaxuserexist')}}",{username:value},function(result){
+                if(result=='yes'){
+                    jQuery("#resultbox").removeClass().addClass('error').text('Username already taken').fadeTo(900,1);
+                    submit = false;
+                }else{
+                    jQuery("#resultbox").removeClass().addClass('success').text('Username is available for registration!').fadeTo(900,1);
+                    submit = true;
+                }
+            });
+        }else{
+            jQuery("#resultbox").removeClass().addClass('msg').text('This field is required');
+        }
+    }
+
+    </script>
+</head>
+<body>
+    <form id="form1" method="post" action="page2">
+        <label for="country">Name:</label><br />
+        <input type="text" id="name" name="name" onblur="getData(this.value)" /><br />
+        <div id="resultbox" class="msg"></div><br />
+        <input type="submit" id="bsubmit" name="bsubmit" value="Submit" />
+    </form>
+</body>
+</html>

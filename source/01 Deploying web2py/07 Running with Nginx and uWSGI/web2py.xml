@@ -1,0 +1,7 @@
+<uwsgi>
+    <socket>127.0.0.1:9001</socket>
+    <pythonpath>/home/www-data/web2py/</pythonpath>
+    <app mountpoint="/">
+        <script>wsgihandler</script>
+    </app>
+</uwsgi>

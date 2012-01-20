@@ -1,0 +1,5 @@
+cd c:\web2py
+c:\python27\python.exe web2py.py
+
+C:\web2py>c:\python27\python.exe web2py.py --help
+ 

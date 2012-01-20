@@ -1,0 +1,9 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{ =plugin_wiki.widget('aggregator',max_entries=4, feed='http://rss.cbc.ca/lineup/topstories.xml') }}
+
+{{
+# Use this line instead for Bogdan improvement
+""" =plugin_wiki.widget('aggregator',max_entries=4, feeds='http://rss.cbc.ca/lineup/topstories.xml') """ 
+}}

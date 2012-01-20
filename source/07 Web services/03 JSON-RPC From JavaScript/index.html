@@ -1,0 +1,26 @@
+{{
+response.files.append(URL('static','js/jquery.js'))
+response.files.append(URL('static','js/rpc.js'))
+response.files.append(URL('static','js/BasicJSONRPC.js'))
+}}
+{{extend 'layout.html'}}
+<h3>Server data</h3>
+<div id="server_data"></div>
+<script type="text/javascript">
+jQuery(function(){
+InitDataConnection();
+rpc.setAsynchronous(DataController,false);
+});
+var results = null;
+function iterateResults(rslts){
+$("#server_data").text("");
+$.each(
+rslts, function(index, value){
+$("#server_data").append("<p>" + String(index) + " " + String(value) + "</p>");
+}
+);
+}
+</script>
+
+<input value="get results", type="button" onclick="results = DataController.BiggerTest(17,25);window.alert('Done');" />
+<input value="original values" type="button" onclick="iterateResults(results);" />

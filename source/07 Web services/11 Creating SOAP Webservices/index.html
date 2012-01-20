@@ -1,0 +1,11 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{=A("List of operations", _href=URL(c="sample", f="call", args=["soap",]))}}
+<br />
+{{=A("Operation help", _href=URL(c="sample", f="call", args=["soap",], vars=dict(op="SubIntegers")))}}
+<br />
+{{=A("Service Description (WSDL)", _href=URL(c="sample", f="call", args=["soap"]) + "?wsdl")}}
+<br />
+{{=A("Test SOAP SubIntegers (WSDL)", _href=URL(c="default", f="test_soap_sub"))}}
+<br />

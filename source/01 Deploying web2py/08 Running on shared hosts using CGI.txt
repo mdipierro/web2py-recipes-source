@@ -1,0 +1,18 @@
+cd cgi-bin
+wget http://www.web2py.com/examples/static/web2py_src.zip
+unzip web2py_src.zip
+rm web2py_src.zip
+
+
+# .htaccess
+
+SuexecUserGroup <yourusername> <yourgroup>
+RewriteEngine on
+RewriteBase /usr/www/users/username
+RewriteRule ^(welcome|examples|admin)(/.*)?$ \
+            /cgi-bin/cgiwrap/username/web2py/cgihandler.py
+
+# end of .htaccess
+
+chown 644 .htaccess
+

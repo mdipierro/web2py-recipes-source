@@ -1,0 +1,13 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+{{=form.custom.begin}}
+<table>
+   <tr>
+      <td>{{=form.custom.widget.myfield}}</td>
+      <td>{{=db.mytable.myfield.comment}}</td>
+   </tr>
+   <tr>
+      <td>{{=form.custom.submit}}</td>
+   </tr>
+</table>
+{{=form.custom.end}}

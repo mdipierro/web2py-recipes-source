@@ -1,0 +1,35 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{from applications.paypal_payments.modules.crypt import * }}
+
+{{     attributes = {"cert_id":sitesettings.paypal_cert_id,
+                    "cmd":"_cart",
+                    "business":sitesettings.cart_business,
+                    "add":"1",
+                    "custom":auth.user.id,
+                    "item_name":artist_name + ": " + song['name'],
+                    "item_number":"song-"+str(song['cue_point_id']),
+                    "amount":song['cost'],
+                    "currency_code":"USD",
+                    "shopping_url":full_url('http',r=request,args=request.args),
+                    "return":full_url('https', r=request, c='account', \
+                       f='alldownloads'),
+                    }
+                  encattrs = paypal_encrypt(attributes, sitesettings)
+}}
+<form target="_self"
+    action="{{=sitesettings.cart_url}}" method="post"
+    name="song{{=song['cue_point_id']}}">
+  <!-- Identify your business so that you can collect the payments. -->
+  <input type="hidden" name="cmd" value="_s-xclick" class="unform"/>
+  <input type="hidden" name="encrypted" value="{{=encattrs}}" class="unform"/>
+  <a onclick="document.song{{=song['cue_point_id']}}.submit()" class="trBtn">
+     <img src="{{=URL('static','images/trIconDL.png')}}"
+       alt="Download {{=(song['name'])}}" class="original"/>
+     <img src="{{=URL('static','images/trIconDL_Hover.png')}}"
+       alt="Download {{=(song['name'])}}" class="hover"/>
+  </a>
+  <img alt="" border="0" width="1" height="1"
+    src="https://www.paypal.com/en_US/i/scr/pixel.gif" class="unform"/>
+</form>

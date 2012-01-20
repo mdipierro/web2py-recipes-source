@@ -1,0 +1,3 @@
+#crontab
+
+* *  *  *  * root *applications/bg_processing/cron/process_reports.py

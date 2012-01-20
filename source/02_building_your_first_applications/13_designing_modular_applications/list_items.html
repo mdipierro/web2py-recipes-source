@@ -1,0 +1,7 @@
+<ul>
+{{for item in rows:}}
+   {{=LI(A('edit %s' % item.name,
+           component=URL('edit_item',args=item.id),
+           target='placeholder'))}}
+   {{pass}}
+</ul>

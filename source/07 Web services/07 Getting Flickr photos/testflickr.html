@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+
+{{for photo in photos:}}
+  {{=IMG(_src=photo['square'])}}
+{{pass}}

@@ -1,0 +1,26 @@
+{{extend 'layout.html'}}
+{{=form}}
+<script>
+var taster_rows = new Array();
+  for(var i=0; i<10; i++){
+  taster_rows[i] = new Array();
+  taster_rows[i][0] = '#no_table_taster'+i;
+  taster_rows[i][1] = '#no_table_taster'+(i+1)+'__row';
+}
+   jQuery(function(){
+      for(var i=1; i<10; i++){
+        jQuery('#no_table_taster'+i+'__row').hide();
+        }
+      for(var i=0; i<9; i++){
+        jQuery('#no_table_taster'+i).change(
+          function(){
+            for(var i=0; i<10; i++){
+              if(taster_rows[i][0] == ("#" + $(this).attr("id"))){
+                jQuery(taster_rows[i][1]).slideDown();
+              }
+            }
+            });
+          }
+      }
+   );
+</script>

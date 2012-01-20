@@ -1,0 +1,34 @@
+{{extend 'layout.html'}}
+<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
+<div id="web2py_user_form">
+{{if 'profile' in request.args:}}
+    {{user = Gravatar(auth.user.email)}}
+    <img src="{{=user.thumb}}" />
+    <blockquote style='width:300px;'>
+        {{try:}}
+            {{=user.profile['aboutMe']}}
+            {{services = user.profile.get('accounts', {})}}
+            {{=UL(*[LI(A(service['shortname'], _href=service['url'])) for service in services])}}
+        {{except Exception:}}
+            No profile information
+        {{pass}}
+    </blockquote>
+{{pass}}
+
+
+{{=form}}
+{{if request.args(0)=='login':}}
+{{if not 'register' in auth.settings.actions_disabled:}}
+<br/><a href="{{=URL(r=request,args='register')}}">register</a>
+{{pass}}
+{{if not 'request_reset_password' in auth.settings.actions_disabled:}}
+<br/><a href="{{=URL(r=request,args='request_reset_password')}}">lost password</a>
+{{pass}}
+{{pass}}
+</div>
+
+<script language="javascript">
+<!--
+ jQuery("#web2py_user_form input:visible:enabled:first").focus();
+//-->
+</script> 

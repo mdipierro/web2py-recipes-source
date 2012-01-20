@@ -1,0 +1,12 @@
+# .htaccess
+
+RewriteEngine on
+RewriteBase /usr/www/users/username
+RewriteRule ^((welcome|examples|admin)(/.*)?)$ \
+            http://127.0.0.1:8000/$1 [P] 
+
+# end of .htaccess
+
+
+nohup python web2py.py -a password -p 8000 -N
+

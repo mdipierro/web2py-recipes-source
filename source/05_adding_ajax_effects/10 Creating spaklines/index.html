@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+{{
+chartoptions = XML("{type:'bar',barColor:'green','chartRangeMin':'%d','chartRangeMax':'%d'}" % (chartmin,chartmax))
+jsonurl = URL('call/json/sparkdata/%(ngraphs)d/%(chartmin)d/%(chartmax)d' % locals())
+}}
+
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery(this).everyTime(1000,function(i) {
+            jQuery.getJSON('{{=jsonurl}}', function(data) {
+            {{for n in xrange(ngraphs):}}
+                jQuery("#dynbar{{=n}}").sparkline(data.dynbar{{=n}}, {{ =chartoptions }} );
+                {{pass}}
+            });
+        });
+    });
+</script>
+<h1>This is the sparkline.html template</h1>
+{{for n in xrange(ngraphs):}}
+<p>
+Bar chart with dynamic data: <span id="dynbar{{=n}}" class="dynamicbar">Loading..</span>
+</p>
+{{pass}}
+{{=BEAUTIFY(response._vars)}}

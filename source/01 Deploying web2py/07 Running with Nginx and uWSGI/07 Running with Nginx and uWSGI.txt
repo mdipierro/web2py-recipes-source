@@ -1,0 +1,26 @@
+apt-get update
+apt-get -y upgrade
+apt-get install python-software-properties
+add-apt-repository ppa:nginx/stable
+add-apt-repository ppa:uwsgi/release
+apt-get update
+apt-get -y install nginx-full
+apt-get -y install uwsgi-python
+
+rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-available/default
+ln -s /etc/nginx/sites-available/web2py /etc/nginx/sites-enabled/web2py
+ln -s /etc/uwsgi-python/apps-available/web2py.xml /etc/uwsgi-python/apps-enabled/web2py.xml
+
+mkdir /etc/nginx/ssl
+cd /etc/nginx/ssl
+openssl genrsa -out web2py.key 1024
+openssl req -batch -new -key web2py.key -out web2py.csr
+openssl x509 -req -days 1780 -in web2py.csr -signkey web2py.key -out web2py.crt
+
+cd /var/web2py
+sudo -u www-data python -c "from gluon.main import save_password; save_password('$PW', 443)"
+
+/etc/init.d/uwsgi-python restart
+/etc/init.d/nginx restart
+ 

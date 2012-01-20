@@ -1,0 +1,10 @@
+<script type="text/javascript">
+var livesearch_url = "{{=URL('ajaxlivesearch')}}";
+</script>
+{{response.files.append(URL('static','css/livesearch.css'))}}
+{{response.files.append(URL('static','js/livesearch.js'))}}
+{{extend 'layout.html'}}
+
+<label for="livesearch">Search country:</label><br />
+<input type="text" id="livesearch" name="country" autocomplete="off" onkeyup="livesearch(this.value);" /><br />
+<div id="livesearchresults"></div>

@@ -1,0 +1,9 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{=form.custom.begin}}
+{{=form.custom.widget.field1}}
+{{=form.custom.widget.field2}}
+{{=form.custom.submit}}
+{{=TAG.BUTTON(T('Cancel'), _onclick='window.alert("Operation cancelled");')}}
+{{=form.custom.end}}

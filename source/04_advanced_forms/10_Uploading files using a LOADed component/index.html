@@ -1,0 +1,7 @@
+{{extend 'layout.html'}}
+
+<h1>{{=T("Change the user's image!")}}</h1>
+
+{{=LOAD('default', 'component_list.load', ajax=True, target='doc_list', user_signature=True)}}
+
+{{=LOAD('default', 'component_form.load', ajax=True, user_signature=True)}}

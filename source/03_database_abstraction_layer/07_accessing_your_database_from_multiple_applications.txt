@@ -1,0 +1,19 @@
+# URI is a valid connection argument for DAL()
+
+# app1 model:
+db = DAL(URI)
+
+
+# app2 model
+db = DAL(URI, migrate_enabled=False)
+
+
+# file myscript.py
+
+#! /usr/env python
+# -*- coding: utf-8 -*-
+
+from gluon.dal import DAL
+db = DAL(URI, folder='/path/to/web2py/applications/app1', auto_import=True)
+print db.tables
+# add your code here

@@ -1,0 +1,43 @@
+{{extend 'layout.html'}}
+<script type="text/javascript">
+// Add upload progress for multipart forms.
+jQuery(function() { jQuery('form[enctype="multipart/form-data"]').submit(function(){
+        // Prevent multiple submits
+        if (jQuery.data(this, 'submitted')) return false;
+        // freqency of update in ms
+        var freq = 1000;
+        // id for this upload so we can fetch progress info.
+        var uuid = ''+Math.floor(Math.random() * 1000000);
+        // ajax view serving progress info
+        var progress_url = '{{ =URL( extension= "json" )}}';
+        // Append X-Progress-ID uuid form action
+        this.action += ((this.action.indexOf('?') == -1)?'?':'&') + 'X-Progress-ID=' + uuid;
+        var progress = jQuery('<div id="upload-progress" class="upload-progress"></div>').insertAfter(jQuery('input[type="submit"]')).append('<div class="progress-container"><span class="progress-info">uploading 0%</span><div class="progress-bar"></div></div>');
+        jQuery('input[type="submit"]').remove();
+        // style the progress bar
+        progress.find('.progress-bar').height('1em').width(0);
+        progress.css("background-color", "red");
+
+        // Update progress bar
+        function update_progress_info() {
+            progress.show();
+            jQuery.getJSON(progress_url,
+                {'X-Progress-ID': uuid, 'random': Math.random()},
+                function(data, status){ if (data) {
+                    var progress_coefficient=parseInt(data.uploaded)/parseInt(data.length);
+                    var width=progress.find('.progress-container').width();
+                    var progress_width = width * progress_coefficient;
+                    progress.find('.progress-bar').width(progress_width);
+                    progress.find('.progress-info').text('uploading ' + progress_coefficient*100 + '%');
+                }
+                window.setTimeout(update_progress_info, freq);
+            });
+        };
+        window.setTimeout(update_progress_info, freq);
+        // mark form as submitted.
+        jQuery.data(this, 'submitted', true);
+    });
+});
+</script>
+
+{{=form}}

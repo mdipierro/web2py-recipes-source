@@ -1,0 +1,24 @@
+{{extend "layout.html"}}
+
+{{block title}}Analysis Drilldown - {{super}}{{end}}
+
+{{block head}}
+    <script>
+        $(document).ready(function() {
+            $('#drill_table').sort();
+        });
+    </script>
+{{end}}
+
+{{block main_content}}    
+    <table id="drill_table">
+        <tr>   
+            <td>ABC</td>
+            <td>123</td>
+        </tr>
+        <tr>   
+            <td>EFG</td>
+            <td>456</td>
+        </tr>
+    </table>
+{{end}}

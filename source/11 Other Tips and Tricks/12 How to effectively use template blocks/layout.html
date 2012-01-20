@@ -1,0 +1,19 @@
+<!doctype html>
+
+<head>
+    <title>{{block title}}My Web2py App{{end}}</title>
+    
+    <script type="text/javascript" src={{=URL(c="static/js", f="jquery.js")}}></script>
+            
+    {{block head}}{{end}}
+</head>
+
+<body>
+    <h1>{{block body_title}}My Web2py App{{end}}</h1>
+
+    <div id="main_content">
+        {{block main_content}}
+            <p>Page has not been defined</p>
+        {{end}}
+    </div>
+</body>

@@ -1,0 +1,10 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+<h3>Python commands to test the app: (install jsonrpc first)</h3>
+<pre>
+from jsonrpc.proxy import JSONRPCProxy
+# replace "app" with the name of the web2py application
+proxy =  JSONRPCProxy('http://127.0.0.1:8000',path='/app/default/call/jsonrpc')
+print proxy.call('concat','hello','world')
+</pre>

@@ -1,0 +1,20 @@
+cd C:\Python\Lib\site-packages
+C:\Python\Lib\site-packages> python isapi_wsgi.py install
+
+C:\Python\Lib\site-packages> python isapi_wsgi.py remove
+
+cd C:\Inetpub\AdminScripts
+cscript.exe adsutil.vbs get W3SVC/AppPools/Enable32BitAppOnWin64
+cscript %systemdrive%\inetpub\AdminScripts\adsutil.vbs get w3svc/AppPools/Enable32bitAppOnWin64
+
+cscript %systemdrive%\inetpub\AdminScripts\adsutil.vbs set w3svc/AppPools/Enable32bitAppOnWin64 1
+
+IIsExt /AddFile %systemroot%\syswow64\inetsrv\httpext.dll 1 WEBDAV32 1 "WebDAV (32-bit)"
+
+system.webServer/applicationPool/add@enable32BitAppOnWin64.
+
+set PYTHONPATH=%PYTHONPATH%;C:\path\to\web2py
+
+cd  C:\Python\Lib\site-packages\
+python isapiwsgihandler.py install --server=sitename
+

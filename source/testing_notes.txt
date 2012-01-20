@@ -1,0 +1,833 @@
+chapter 1 Deploying web2py
+- 01 Installing on Windows (from source code)
+    2011-10-19
+    - observations:
+
+- 02 Installing web2py in Ubuntu
+    2011-10-19
+    - observations:
+
+- 03 Setting up a production deployment on Ubuntu
+    2011-10-19
+    - observations:
+
+- 04 Running with Apache, ``mod_proxy`` and ``mod_rewrite``
+    2011-10-19
+    - observations:
+
+- 05 Running with Lighttpd
+    2011-10-19
+    - observations:
+
+- 06 Running with Cherokee
+    2011-10-19
+    - observations:
+
+- 07 Running with Nginx and uWSGI
+    2011-10-19
+    - observations:
+
+- 08 Running on shared hosts using CGI
+    2011-10-19
+    - observations:
+
+- 09 Running on shared hosts with ``mod_proxy``
+    2011-10-19
+    - observations:
+
+- 11 Running from a user-defined folder
+    2011-10-19
+    - observations:
+
+- 12 Installing web2py as a service in Ubuntu
+    2011-10-19
+    - observations:
+
+- 13 Running web2py with IIS as Proxy
+    2011-10-19
+    - observations:
+
+        Also download managedfusion-rewrite-examples.zip from the same website and extract the two files:
+
+        ``
+        C:\inetpub\wwwroot\web2py\Web.config
+        ``
+
+        it is only one file and the recipe says it is two.
+
+- 14 Running web2py with ISAPI
+    2011-10-19
+    - observations:
+
+
+chapter 2 Building your first applications
+
+- Building your first applications
+    - observations: listed as an example but it is not present as a section
+
+- 01 Improving the scaffolding application
+    2011-10-12
+    - observations:
+        - changed property name in db.py at line 24 from ...field to ...fields
+        - had to change production value to False (the app was not finding the table auth_user when inserting a record)
+        - removed pool_size from the call to DAL (see next item)
+        - The app outputs debugging warnings (with pool_size set to 20):
+            DEBUG_c: Exception (<type 'exceptions.Exception'>, OperationalError('Error creating function',))
+        - After a while using the app (for example going to the register action), it raises an exception:
+
+            Traceback (most recent call last):
+            File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+                exec ccode in environment
+            File "/home/alan/web2py-hg/applications/improving_the_scaffolding_application/models/db.py", line 5, in <module>
+                db = DAL(settings.db_uri,pool_size=20)
+            File "/home/alan/web2py-hg/gluon/dal.py", line 4182, in __init__
+                raise RuntimeError, "Failure to connect, tried %d times:\n%s" % (attempts, error)
+            RuntimeError: Failure to connect, tried 5 times:
+            Error creating function
+
+            both issues seem to solve removing the pool_size argument in the call to DAL (if production is True)
+
+- 02 Building a simple contacts application.
+    2011-10-12
+    - observations:
+        - changed html end tag for markmin
+
+- 03 Building a Reddit clone
+    2011-10-12
+    - observations:
+        - Line 1961 default.py is not marked as the source py module (to copy the code to)
+        - Line 2122 categories.html view is duplicated (should be removed)
+        - changed template value news.url to news.link in news.html
+        - news_comments.html vote ajax call is not accepted by the controller because it is not detected as POST request.
+        - fixed property name http_method to request_method (ajax didn't work) in default.py vote() action
+
+- 04 Building a Facebook Clone
+    2011-10-12
+    - observations:
+        ¿line 2198 file "models" is db.py?
+
+
+- 05 Using crud.archive
+    2011-10-12
+    - observations:
+        - created an example app with record creation/update and lists
+
+- 06 Converting an existing static site
+    2011-10-13
+    - observations:
+        - created an app and added the web2py logo_lb.png file
+
+- 07 Creating semi-static pages (flatpages)
+    2011-10-13
+    - observations:
+        created the app and added a record counter at the end of the action setup_flatpage
+        line 2705 modified indentation in if elif else structure for edit messages. file flatpages.py
+        setup_flatpage creates en language records, so when client language is other pages are not found (should be warned in the book)
+
+- 08 Adding your custom logo
+    2011-10-13
+    - observations:
+        created the app and added a logo image (web2py logo_lb)
+
+- 09 Creating menus and submenus
+    2011-10-13
+    - observations:
+        created the app. removed actions not coded
+
+- 10 Customizing menus with icons
+    2011-10-13
+    - observations:
+        created the app. Used default scaffolding app's images for menu icons (lacks of proper icons)
+
+- 11 Creating a Navigation Bar
+    2011-10-13
+
+- 12 Using cookies to set the language
+    2011-10-13
+    - observations:
+        two alternative layout.html files in source folder
+
+- 13 Designing modular applications
+    2011-10-13
+    - observations:
+        incomplete
+        line 3224 default.py: display_changes is display_changed
+        line 3221 onaccept event passes an object (named it form)
+        still, the list of items created does not update automatically
+
+- 14 Speeding up downloads
+    2011-10-13
+    - observations:
+        line 3322 (url for fast download). args must be "filepath"
+
+chapter 3 Database Abstraction Layer
+- 01 Creating a new model
+    2011-10-13
+    - observations: created the app
+
+- 02 Creating a model from a csv file
+    2011-10-13
+    - observations:
+        created the app
+        the csvstudio.py script creates the table and adds lines to the model with the syntax:
+
+        ### 0
+        field1=value, field2=value, ...
+
+        so the file needs cleanup before copying to the apps model.
+
+- 03 Batch upload of your data
+    2011-10-13
+    - observations:
+        created the app
+        corrected table name in imported.py
+
+- 04 Moving your data from one database to another
+    2011-10-13
+    - observations:
+        created the app
+        not tested with MySQL connection string (production = True)
+        tested connection with postgres
+        added if __name__ == "__main__" to the script for running with a terminal
+
+- 05 Creating a model from an existing MySQL and PostgreSQL databases
+    2011-10-13
+    - observations:
+        no app created
+        tested the terminal command with the postgresql script
+
+- 06 Efficient search by tag
+    2011-10-13
+    - observations:
+    created the app
+    changed the code at line 3835. table "tag" in query changed to "link"
+    added code to the controller for user input (there was not controller or view code)
+
+- 07 Accessing you database from multiple applications
+    2011-10-13
+    - observations:
+        no app created
+        connection string with postgres does not allow migrations? (both apps must have migration_enabled = False)
+        the python script for metadata returns an empty list ([])
+
+- 08 Hierarchical Category Tree
+    2011-10-13
+    - observations:
+    created app and added controller code
+    corrected indentation in for loop and changed class name error in line 3992
+    the app stops in action default/tree with the following error:
+
+    Traceback (most recent call last):
+    File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+        exec ccode in environment
+    File "/home/alan/web2py-hg/applications/hierarchical_category_tree/controllers/default.py", line 89, in <module>
+    File "/home/alan/web2py-hg/gluon/globals.py", line 149, in <lambda>
+        self._caller = lambda f: f()
+    File "/home/alan/web2py-hg/applications/hierarchical_category_tree/controllers/default.py", line 79, in tree
+        for node in treeproxy.ancestors(db.tree(id)).select():
+    File "/home/alan/web2py-hg/gluon/dal.py", line 4543, in __getattr__
+        return self[key]
+    File "/home/alan/web2py-hg/gluon/dal.py", line 4537, in __getitem__
+        return dict.__getitem__(self, str(key))
+    KeyError: 'tree'
+
+- 09 creating records on demand
+    2011-10-14
+    - observations:
+    created app and added controller code
+
+
+- 10 OR, LIKE, BELONGS, and more on Google App Engine
+    2011-10-14
+    - observations:
+        created app and added controller code
+        the code near line 4188 raises these errors.
+        It seems that it is incompatible with Sqlite and should be tested with GAE:
+
+        Traceback (most recent call last):
+        File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+            exec ccode in environment
+        File "/home/alan/web2py-hg/applications/or_like_belongs_and_more/controllers/default.py", line 104, in <module>
+        File "/home/alan/web2py-hg/gluon/globals.py", line 149, in <lambda>
+            self._caller = lambda f: f()
+        File "/home/alan/web2py-hg/applications/or_like_belongs_and_more/controllers/default.py", line 29, in index
+            logical_or = db(purchase.buyer.contains((kenny,cartman))).select()
+        File "/home/alan/web2py-hg/gluon/dal.py", line 5297, in contains
+            subqueries = [self.contains(str(v).strip()) for v in value if str(v).strip()]
+        File "/home/alan/web2py-hg/gluon/dal.py", line 5300, in contains
+            raise SyntaxError, "contains used with incompatible field type"
+        SyntaxError: contains used with incompatible field type
+
+
+        Traceback (most recent call last):
+        File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+            exec ccode in environment
+        File "/home/alan/web2py-hg/applications/or_like_belongs_and_more/controllers/default.py", line 105, in <module>
+        File "/home/alan/web2py-hg/gluon/globals.py", line 149, in <lambda>
+            self._caller = lambda f: f()
+        File "/home/alan/web2py-hg/applications/or_like_belongs_and_more/controllers/default.py", line 40, in index
+            3600)
+        File "/home/alan/web2py-hg/gluon/cache.py", line 184, in __call__
+            value = f()
+        File "/home/alan/web2py-hg/applications/or_like_belongs_and_more/controllers/default.py", line 39, in <lambda>
+            lambda:dict(*[(b.id,b.name) for b in db(db.buyer).select()]),
+        TypeError: dict expected at most 1 arguments, got 2
+
+
+- 11 Replacing slow virtual fields with DB views
+    2011-10-14
+    - observations:
+        created an app.
+        the code raises an error:
+
+        Traceback (most recent call last):
+        File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+            exec ccode in environment
+        File "/home/alan/web2py-hg/applications/db_views/models/db.py", line 80, in <module>
+            if not db.executesql("select * from information_schema.tables where table_name='purchase_plus' limit 1;"):
+        File "/home/alan/web2py-hg/gluon/dal.py", line 4594, in executesql
+            self._adapter.execute(query)
+        File "/home/alan/web2py-hg/gluon/dal.py", line 1334, in execute
+            return self.log_execute(*a, **b)
+        File "/home/alan/web2py-hg/gluon/dal.py", line 1329, in log_execute
+            ret = self.cursor.execute(*a,**b)
+        OperationalError: no such table: information_schema.tables
+
+
+chapter 4 Advanced Forms
+
+- 01 Adding a ''cancel'' button to forms
+    2011-10-14
+    - observations:
+        new .w2p file
+
+- 02 Adding confirmation on form submit
+    2011-10-14
+    - observations:
+        new .w2p file
+
+- 03 Searching data dynamically
+    2011-10-14
+    - observations:
+        new .w2p file and table definition
+
+- 04 Embedding multiple forms in one page
+    2011-10-14
+    - observations:
+        new .w2p file
+
+- 05 Detecting and blocking concurrent updates
+    2011-10-14
+    - observations:
+        new .w2p file
+
+- 06 Creating a Form Wizard
+    2011-10-14
+    - observations:
+        new .w2p file
+        correction of code from line 4778
+
+
+- 07 De-normalizing data temporarily
+    2011-10-14
+    - observations:
+        new .w2p file
+        correction of code from line 4798
+        added code to controller (index action)
+
+- 08 Removing form labels
+    2011-10-14
+    - observations:
+        new .w2p file
+        added code to controller. case two does not work if the form is not passed to the view
+
+- 09 Using ``fileuploader.js``
+    2011-10-14
+    - observations:
+        copied source from .w2p
+
+- 10 Uploading files using a LOADed component
+    2011-10-14
+    - observations:
+        copied source from .w2p
+
+- 11 Making image thumbnails from uploaded images
+    2011-10-14
+    - observations:
+        created .w2p
+
+- 12 Monitoring upload progress
+    2011-10-14
+    - observations:
+        created .w2p
+        repaired bugs in javascript (post template)
+        added dummy uuid at controller (line 5215)
+
+- 13 Auto Tooltip in Forms
+    2011-10-14
+    - observations:
+        no section title in book
+        added .w2p and view code
+
+- 14 Color picker widget
+    2011-10-14
+    - observations:
+        fixed URL call in plugin model
+        added .w2p
+
+- 15 Shortening text fields
+    2011-10-14
+    - observations:
+        added .w2p and view code
+
+- 16 Creating multi-table forms
+    2011-10-14
+    - observations:
+        added .w2p
+        repaired bug in action (register_bottle) for one reference submissions
+
+- 17 Creating a multi-table form with references
+    2011-10-15
+    - observations:
+        added .w2p
+        re-coded jQuery in view for proper object inspection. The original javascript did not work.
+
+- 18 Creating a multi-table update form
+    2011-10-15
+    - observations:
+        added .w2p and controller code
+        re-coded jQuery (idem previous recipe) 
+
+- 19 Star Rating Widget
+    2011-10-15
+    - observations:
+        added .w2p and controller code
+        debuged jQuery missing quote
+        corrected wrong dependencies and static folder names in plugin
+
+
+chapter 5 Adding Ajax Effects
+- 01 Using ``jquery.multiselect.js``
+    2011-10-15
+    - observations:
+        added .w2p
+
+- 02 Creating a select_or_add widget
+    2011-10-15
+
+- 03 Using an autocompletion plugin
+    2011-10-15
+    - observations:
+        created the .w2p and added code to the controller.
+        The second part of the recipe is not working (no autocomplete list returned)
+        Used the last version of jquery.autocomplete.js (Github). The book points to an old blog.
+        Repaired problems with js/jQuery and autocomplete calls (the js had errors and the widget failed)
+
+- 04 Creating a dropdown date selector
+    2011-10-15
+    - observations:
+        created the .w2p
+
+- 05 Improving the built-in ajax function
+    2011-10-15
+    - observations:
+        added the .w2p
+
+        The example as it is presented fails. Had to declare a javascript variable in layout and call it from the modified ajax function
+
+        In the book should say:
+
+            Before the include "web2py_ajax.html" in layout.html place the following code:
+
+            <script type="text/javascript">
+            var app_loading_image = '{{ =IMG(_src=URL("static","images/loading.gif"), _alt="loading") }}';
+            </script>
+
+        Then, the jQuery sentence in ajax() must be changed to:
+
+            jQuery("#"+t).html(app_loading_image);        
+
+- 06 Using a slider to represent a number
+    2011-10-15
+    - observations:
+        added the .w2p
+        There was an issue with the table definition (missing default value for integer field)
+        Repaired mistyped names wich raised exceptions
+        The widget source code was incomplete (missing integer input tag)
+
+- 07 Using jqGrid and web2py
+    2011-10-15
+    - observations:
+        added the .w2p
+        web2py does not find a populate() unless the function is imported (added to model)
+
+- 08 Improving data tables with WebGrid
+    2011-10-15
+    - observations:
+        added the .w2p
+
+- 09 Ajaxing your search functions
+    2011-10-15
+    - observations:
+        added the .w2p
+        like in recipe 05, had to move the template syntax code call in the js script file to the view template.
+
+- 10 Creating spaklines
+    2011-10-15
+    - observations:
+        ¿spaklines?
+        added the .w2p
+        Fixed escaping issue in template. The view was not showing correctly.
+
+chapter 6 Using third party libraries
+- 01 Customizing Logging
+    2011-10-16
+    - observations:
+        added the .w2p
+        modified the model code in first example
+        the GAE code was not tested
+
+
+- 02 Aggregating feeds
+    2011-10-16
+    - observations:
+        added the .w2p
+
+- 03 Displaying Tweets
+    2011-10-16
+    - observations:
+
+
+- 04 Plotting with matplotlib
+    2011-10-16
+    - observations:
+        created .w2p and added code to the index action
+        missing import cStringIO in model code
+
+- 05 Extending PluginWiki with an RSS widget
+    2011-10-16
+    - observations:
+      created .w2p and added code to the index view
+      included bogdan improvement as alternative in the app (the user must switch the view and model code)
+      the widget tag must be interpreted as text to show the example correctly
+
+- 06 Authenticating with Facebook using OAuth 2.0
+    2011-10-16
+    - observations:
+        created the .w2p
+
+        added modified facebook.py for authentication to the source code folder (The script was released with Apache license)
+        IMPORTANT: CHECK LEGAL ISSUES ABOUT PUBLICATION OF FACEBOOK SCRIPT
+
+        tested without fb api registration
+        on login action the app shows a JSON text:
+
+            {
+            "error": {
+                "message": "Error validating application.",
+                "type": "OAuthException"
+            }
+            }
+
+
+chapter 7 Web services
+
+- 01 Consuming a web2py JSON service with jQuery
+    2011-10-16
+    - observations:
+        created the .w2p
+        corrected missing quote in jQuery call
+        the second example controller does not return valid json
+
+- 02 Consuming a JSON-RPC service
+  2011-10-16
+    - observations:
+        created the .w2p
+        added example code to the view
+        corrected function name in call (second example)
+
+- 03 JSON-RPC From JavaScript
+    2011-10-16
+    - observations:
+        created the .w2p
+        javascript code have no file names
+        biggertest function's file is not specified
+        GetConnectionURL and Log js functions are not implemented (but called in the example)
+        added jQuery + html code to the view (index)
+
+        NOTE:THE APP INSTALLER INCLUDES THE MODIFIED rpc.js (AS INSTRUCTED IN THE RECIPE) FILE. CHECK FOR LEGAL ISSUES ON REDISTRIBUTION
+
+        Second part (object wrapper) could not be tested.
+        repaired javascript format problems with line-breaks in app
+        There is a js error while running the client script:
+
+            Error: Unable to convert the value of type "function" to JSON.The value is: function (response) {
+            LoadDataObject("BiggerTest", [params[0], params[1]], response);
+            }
+            Archivo de origen: http://127.0.0.1:8001/jsonrpc_javascript/static/js/rpc.js
+            Línea: 588
+            (the error message output in rpc.js was changed for debugging)
+
+- 04 Making amf3 RPC calls from Flex using pyamf
+    2011-10-16
+    - observations:
+        created the .w2p
+        not tested (just code revision). Requires Flex
+
+- 05 PayPal integration in Web2py
+    2011-10-16
+    - observations:
+        created the .w2p
+        not tested (just code revision). Requires paypal account (pending)
+
+- 06 PayPal web payments standard
+    2011-10-16
+    - observations:
+        created the .w2p
+        not tested (just code revision). Requires paypal account (pending)
+        the app fails searching a sitesettings object not declared in the recipe
+
+- 07 Getting Flickr photos
+    2011-10-16
+    - observations:
+        created the .w2p
+        Requires api key (pending). flickr server returns a no api key error message
+
+- 08 Sending emails with Boto via Amazon Web Services
+    2011-10-17
+    - observations:
+        created the .w2p
+        added custom function for demo app (view and controller)
+        server request with authentication is not tested requires keys / certificates for the api (pending)
+        the server returns:
+
+            BotoServerError: 403 Forbidden <ErrorResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/"> <Error> <Type>Sender</Type> <Code>InvalidClientTokenId</Code> <Message>The security token included in the request is invalid</Message> </Error> <RequestId>ce954180-f8d7-11e0-8ef8-7f77eb4db6e8</RequestId> </ErrorResponse>
+
+
+- 09 Making GIS maps using mapscript
+    2011-10-17
+    - observations:
+        not tested (pending).
+        errors installing python mapscript
+
+- 10 Google Groups and Google Code feeds reader
+    2011-10-17
+    - observations:
+    created the .w2p and added code to the view
+    Errata: "... Now in any controller you can embed the latest google group info:..." should read "...any view..."
+
+- 11 Creating SOAP Webservices
+    2011-10-17
+    - observations:
+    created the .w2p and added code to the view and controller
+
+chapter 8 Authentication and Authorization
+
+- 01 Customizing Auth
+    2011-10-17
+    - observations:
+        created the .w2p
+        small change in the telephone regular expr
+
+- 02 Using CAPTCHA un login failure
+    2011-10-17
+    - observations:
+        ¿Using CAPTCHA on login failure?
+        recaptcha keys required (not specified in the recipe)
+        created the .w2p
+
+- 03 How to use pyGravatar to get avatars for user profile page
+    2011-10-17
+    - observations:
+        forced login in index action
+
+- 04 Multiuser and teacher mode
+    - feature (no app or code except a command in appadmin/models/0.py)
+    - Errata: The book says "...admin/appadmin/0.py...", must be "...admin/model/0.py..."
+
+- 05 Ajax Live User Validation
+    2011-10-17
+    - observations:
+        created the .w2p.
+        repaired a script source error (rewrited the url call)
+
+
+chapter 9 Routing recipes
+- 01 Making cleaner urls with routes.py
+    2011-10-17
+    - observations:
+        changed the controller code (the app raises an exception if
+        .extra_fields is passed as a list instead of a dict
+
+- 02 Creating a Simple Router
+    2011-10-17
+    - observations:
+        created the .w2p
+        modified routes.py setting a path prefix value
+
+- 03 Adding a URL prefix
+    2011-10-17
+
+- 04 Associating applications with domains
+    2011-10-17
+        not tested (requires host multiple domain configuration)
+
+- 05 Omitting the application name
+    2011-10-17
+
+- 06 Removing app name and controller from URLs
+    2011-10-17
+
+- 07 Replacing underscores with hyphens in URLs
+    2011-10-18
+
+- 08 Mapping ``favicons.ico`` and ``robots.txt``
+    2011-10-18
+
+- 09 Using URL to specify the language
+    2011-10-18
+    - observations:
+        created the .w2p
+
+
+chapter 10 Reporting Recipes
+
+- 01 Creating PDF reports
+    2011-10-18
+    - observations:
+        included PyFPDF tutorial folder in app/private
+        changed controller path to images
+        new installer with modifications
+        (opening .png files raised file not found errors)
+
+- 02 Creating PDF listings
+    2011-10-18
+    - observations:
+        no .w2p (the example comes with the .w2p from the recipe 01)
+
+- 03 Creating PDF Label, Badges, Invoices, etc.
+    2011-10-18
+    - observations:
+         created a badges controller using code from the badges example and updated the pdf app installer
+
+         "... Set ``copy_labels`` equal to the value in ``base_pdf_template_id``, then execute it ... " must be
+         "... Set ``base_pdf_template_id`` to the value created with create_labels`` in the action "copy_labels", then execute it ... "
+
+         "... Set ``speaker_badges`` equalt ..." must be
+         "... Set ``speakers_badges`` equal ..."
+
+         in the app installer an appropiate static/badge_background.png should be added
+
+
+chapter 11 Other Tips and Tricks
+
+- 01 Using PDB, the embedded web2py debugger
+    2011-10-18
+    - observations:
+        created the .w2p (just the index function for debugging)
+        modified controller (the debugger action raised import errors)
+
+
+- 02 Debugging with Eclipse and PyDev
+    2011-10-18
+    - observations:
+        not tested (it has not web2py app source code anyway)
+
+- 03 Updating web2py using a shell script
+    2011-10-18
+    - observations:
+        - tested the update script with GNU/Linux
+        - copied the .sh to source files
+        - corrected a path in an example shell command
+
+- 04 Creating a simple page statistics plugin
+    2011-10-18
+    - observations:
+        - repaired model (syntax errors)
+        - added the .w2p
+
+- 05 Rounding corners without images or JavaScript
+    2011-10-18
+    - observations:
+        - added the .w2p and view code
+        - repaired controller (misplaced quote)
+
+- 06 Setting a cache.disk quota
+    2011-10-18
+    - observations:
+        created the .w2p and added controller and model code
+        repaired error in CacheOnDisk call with missing parameter
+
+- 07 Checking if web2py is running using cron
+    2011-10-18
+    - observations:
+        tested the script in non root user. netcat is required (not specified in the recipe)
+        the script must have access to the log folder
+        there is no visible confirmation output with KDE Konsole, but the server starts alright
+
+- 08 Building a Mercurial plugin
+    2011-10-18
+    - observations:
+        added the .w2p and view code
+        the plugin_mercurial.py file should be stored in controllers (when placed in model the index action does not work)
+
+- 09 Building a pingback plugin
+    2011-10-18
+    - observations:
+        created the .w2p
+        the application fails in module plugin_pingback.py for action addpost:
+
+            Traceback (most recent call last):
+            File "/home/alan/web2py-hg/gluon/restricted.py", line 194, in restricted
+                exec ccode in environment
+            File "/home/alan/web2py-hg/applications/pingback/controllers/default.py", line 99, in <module>
+            File "/home/alan/web2py-hg/gluon/globals.py", line 149, in <lambda>
+                self._caller = lambda f: f()
+            File "/home/alan/web2py-hg/applications/pingback/controllers/default.py", line 94, in addpost
+                targets=[linked_to_post_url_A, linked_to_post_url_B]
+            File "applications/pingback/modules/plugin_pingback.py", line 241, in ping
+                client = PingbackClient(db, source, targets, commit)
+            File "applications/pingback/modules/plugin_pingback.py", line 146, in __init__
+                define_table_if_not_done(db)
+            File "applications/pingback/modules/plugin_pingback.py", line 37, in define_table_if_not_done
+                if not TABLE_PINGBACKS in db.tables:
+            AttributeError: 'dict' object has no attribute 'tables'
+
+- 10 Chaning views for mobile browsers
+    2011-10-19
+    - observations:
+        created the .w2p
+        added missing import os in model
+        the app does not include the mobile/url python libraries
+
+- 11 Step by step a simple data driven application
+    2011-10-19
+    - observations:
+         created the .w2p file and added code to views
+         added call to function in cron script
+         ¿Background Processing with a Database Queue?
+
+- 12 How to effectively use template blocks
+    2011-10-19
+    - observations:
+         created the .w2p file and added code to the controller
+         changed .js source url
+
+- 13 Making standalone apps with web2py and wxPython
+    2011-10-19
+    - observations:
+        tested the script and stored it in chapter source code folder
+
+################################################################
+
+notes
+- a_b_c app name convention does not look good in the scaffolding app default titles
+
+skipped apps:
+chapter 02: modular, section 13 (incomplete)
+replace :code_html (templates) with :code_web2py
+
+Chapter 8 - 4 "...Multiuser..." has no code (except a line in 0.py)
+
+routes recipes were tested with app installer only when needed (the most of them can be tested with web2py routes.py parameters)
+Chapter 9 .w2p installers do not include the routes.py parameters wich can be copied from the source folders. (a workaround can be using local application routes files.)

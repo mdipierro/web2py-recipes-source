@@ -1,0 +1,147 @@
+chapter 1 Deploying web2py
+- Installing on Windows (from source code)
+- Installing web2py in Ubuntu
+- Setting up a production deployment on Ubuntu
+- Running with Apache, ``mod_proxy`` and ``mod_rewrite``
+- Running with Lighttpd
+- Running with Cherokee
+- Running with Nginx and uWSGI
+- Running on shared hosts using CGI
+- Running on shared hosts with ``mod_proxy``
+- Running from a user-defined folder
+- Installing web2py as a service in Ubuntu
+- Running web2py with IIS as Proxy
+- Running web2py with ISAPI
+
+
+chapter 2 Building your first applications
+- ¿? Building your first applications
+- 01 Improving the scaffolding application
+- 02 Building a simple contacts application.
+- 03 Building a Reddit clone
+- 04 Building a Facebook Clone
+- 05 Using crud.archive
+- 06 Converting an existing static site
+- 07 Creating semi-static pages (flatpages)
+- 08 Adding your custom logo
+- 09 Creating menus and submenus
+- 10 Customizing menus with icons
+- 11 Creating a Navigation Bar
+- 12 Using cookies to set the language
+- 13 Designing modular applications
+- 14 Speeding up downloads
+
+
+chapter 3 Database Abstraction Layer
+- Creating a new model
+- Creating a model from a csv file
+- Batch upload of your data
+- Moving your data from one database to another
+- Creating a model from an existing MySQL and PostgreSQL databases
+- Efficient search by tag
+- Accessing you database from multiple applications
+- Hierarchical Category Tree
+- creating records on demand
+- OR, LIKE, BELONGS, and more on Google App Engine
+- Replacing slow virtual fields with DB views
+
+
+chapter 4 Advanced Forms
+- Adding a ''cancel'' button to forms
+- Adding confirmation on form submit
+- Searching data dynamically
+- Embedding multiple forms in one page
+- Detecting and blocking concurrent updates
+- Creating a Form Wizard
+- De-normalizing data temporarily
+- Removing form labels
+- Using ``fileuploader.js``
+- Uploading files using a LOADed component
+- Making image thumbnails from uploaded images
+- Monitoring upload progress
+- Auto Tooltip in Forms
+- Color picker widget
+- Shortening text fields
+- Creating multi-table forms
+- Creating a multi-table form with references
+- Creating a multi-table update form
+- Star Rating Widget
+
+
+chapter 5 Adding Ajax Effects
+- Using ``jquery.multiselect.js``
+- Creating a select_or_add widget
+- Using an autocompletion plugin
+- Creating a dropdown date selector
+- Improving the built-in ajax function
+- Using a slider to represent a number
+- Using jqGrid and web2py
+- Improving data tables with WebGrid
+- Ajaxing your search functions
+- Creating spaklines
+
+
+chapter 6 Using third party libraries
+- Customizing Logging
+- Aggregating feeds
+- Displaying Tweets
+- Plotting with matplotlib
+- Extending PluginWiki with an RSS widget
+- Authenticating with Facebook using OAuth 2.0
+
+
+chapter 7 Web services
+- Consuming a web2py JSON service with jQuery
+- Consuming a JSON-RPC service
+- JSON-RPC From JavaScript
+- Making amf3 RPC calls from Flex using pyamf
+- PayPal integration in Web2py
+- PayPal web payments standard
+- Getting Flickr photos
+- Sending emails with Boto via Amazon Web Services
+- Making GIS maps using mapscript
+- Google Groups and Google Code feeds reader
+- Creating SOAP Webservices
+
+
+chapter 8 Authentication and Authorization
+- Customizing Auth
+- Using CAPTCHA un login failure
+- How to use pyGravatar to get avatars for user profile page
+- Multiuser and teacher mode
+- Ajax Live User Validation
+- Authenticating with Facebook using OAuth 2.0
+
+
+chapter 9 Routing recipes
+- Making cleaner urls with routes.py
+- Creating a Simple Router
+- Adding a URL prefix
+- Associating applications with domains
+- Omitting the application name
+- Removing app name and controller from URLs
+- Replacing underscores with hyphens in URLs
+- Mapping ``favicons.ico`` and ``robots.txt``
+- Using URL to specify the language
+
+
+chapter 10 Reporting Recipes
+- Creating PDF reports
+- Creating PDF listings
+- Creating PDF Label, Badges, Invoices, etc.
+
+
+chapter 11 Other Tips and Tricks
+- Using PDB, the embedded web2py debugger
+- Debugging with Eclipse and PyDev
+- Updating web2py using a shell script
+- Creating a simple page statistics plugin
+- Rounding corners without images or JavaScript
+- Setting a cache.disk quota
+- Checking if web2py is running using cron
+- Building a Mercurial plugin
+- Building a pingback plugin
+- Chaning views for mobile browsers
+- Step by step a simple data driven application
+- How to effectively use template blocks
+- Making standalone apps with web2py and wxPython

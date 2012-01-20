@@ -1,0 +1,7 @@
+MAP
+  NAME "sample"
+  EXTENT -180 -90 180 90 # Geographic
+  SIZE 800 400
+  IMAGECOLOR 128 128 255
+END # MAP
+ 

@@ -1,0 +1,18 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+<script type="text/javascript">
+  jQuery(function() {
+    // iterates over all form widgets
+    jQuery(".w2p_fw").each(function (){                    
+      // set title for the widget taken from the comment column
+      jQuery(this).attr('title',jQuery(this).next().html());      
+      // clear the comment (optional)
+      jQuery(this).next().html('');                             
+      // create the tooltip with title attribute set
+      jQuery(this).tooltip();                                    
+    });
+  });
+</script>
+
+{{=SQLFORM(db.recados)}}

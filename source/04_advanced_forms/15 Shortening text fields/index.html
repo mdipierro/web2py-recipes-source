@@ -1,0 +1,6 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{for post in posts:}}<div class="post">{{=post.short}}</div>{{pass}}
+
+{{=A("wiki mode", _href=URL("wiki_index"))}}

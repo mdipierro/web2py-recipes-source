@@ -1,0 +1,9 @@
+<uwsgi>
+    <pythonpath>/home/web2py</pythonpath>
+    <module>wsgihandler</module>
+    <socket>127.0.0.1:37719</socket>
+    <master/>
+    <processes>8</processes>
+    <memory-report/>
+</uwsgi>
+

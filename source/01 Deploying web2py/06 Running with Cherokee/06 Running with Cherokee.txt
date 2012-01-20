@@ -1,0 +1,9 @@
+$ uWSGI -d uwsgi.xml
+
+$ cherokee-admin
+
+$ su - <web2py user>
+$ cd <web2py root>
+$ uwsgi -x uwsgi.xml -d /tmp/uwsgi.log
+
+ 

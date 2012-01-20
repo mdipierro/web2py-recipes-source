@@ -1,0 +1,11 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+<h3>My numbers (ajax)</h3>
+<div id="my_numbers"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$("#my_numbers").text(ajax( "{{=URL(f='my_ajax')}}", "", "my_numbers"));
+});
+</script>

@@ -1,0 +1,115 @@
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install postgresql
+sudo apt-get install unzip
+sudo apt-get install openssh-server
+sudo apt-get install apache2
+sudo apt-get install libapache2-mod-wsgi
+sudo apt-get install python-imaging
+
+cd /home
+sudo mkdir www-data
+cd www-data
+
+sudo wget http://web2py.com/examples/static/web2py_src.zip
+sudo unzip web2py_src.zip
+sudo chown -R www-data:www-data web2py
+
+sudo a2enmod expires
+sudo a2enmod ssl
+
+sudo mkdir /etc/apache2/ssl
+sudo openssl genrsa 1024 > /etc/apache2/ssl/self_signed.key
+sudo chmod 400 /etc/apache2/ssl/self_signed.key
+sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/apache2/ssl/self_signed.key > /etc/apache2/ssl/self_signed.cert
+sudo openssl x509 -noout -fingerprint -text < /etc/apache2/ssl/self_signed.cert > /etc/apache2/ssl/self_signed.info
+
+sudo nano /etc/apache2/sites-available/default
+
+
+# apache configuration
+
+NameVirtualHost *:80
+NameVirtualHost *:443
+
+<VirtualHost *:80>
+  WSGIDaemonProcess web2py user=www-data group=www-data
+  WSGIProcessGroup web2py
+  WSGIScriptAlias / /home/www-data/web2py/wsgihandler.py
+
+  <Directory /home/www-data/web2py>
+    AllowOverride None
+    Order Allow,Deny
+    Deny from all
+    <Files wsgihandler.py>
+      Allow from all
+    </Files>
+  </Directory>
+
+  AliasMatch ^/([^/]+)/static/(.*) \
+           /home/www-data/web2py/applications/$1/static/$2
+  <Directory /home/www-data/web2py/applications/*/static/>
+    Options -Indexes
+    Order Allow,Deny
+    Allow from all
+  </Directory>
+
+  <Location /admin>
+  Deny from all
+  </Location>
+
+  <LocationMatch ^/([^/]+)/appadmin>
+  Deny from all
+  </LocationMatch>
+
+  CustomLog /var/log/apache2/access.log common
+  ErrorLog /var/log/apache2/error.log
+</VirtualHost>
+
+<VirtualHost *:443>
+  SSLEngine on
+  SSLCertificateFile /etc/apache2/ssl/self_signed.cert
+  SSLCertificateKeyFile /etc/apache2/ssl/self_signed.key
+
+  WSGIProcessGroup web2py
+
+  WSGIScriptAlias / /home/www-data/web2py/wsgihandler.py
+
+  <Directory /home/www-data/web2py>
+    AllowOverride None
+    Order Allow,Deny
+    Deny from all
+    <Files wsgihandler.py>
+      Allow from all
+    </Files>
+  </Directory>
+
+  AliasMatch ^/([^/]+)/static/(.*) \
+        /home/www-data/web2py/applications/$1/static/$2
+
+  <Directory /home/www-data/web2py/applications/*/static/>
+    Options -Indexes
+    ExpiresActive On
+    ExpiresDefault "access plus 1 hour"
+    Order Allow,Deny
+    Allow from all
+  </Directory>
+
+  CustomLog /var/log/apache2/access.log common
+  ErrorLog /var/log/apache2/error.log
+</VirtualHost>
+
+# end of apache configuration
+
+
+sudo /etc/init.d/apache2 restart
+cd /home/www-data/web2py
+sudo -u www-data python -c "from gluon.widget import console; console();"
+sudo -u www-data python -c "from gluon.main import save_password; save_password(raw_input('admin password: '),443)"
+
+# alternative script setup
+
+wget http://web2py.googlecode.com/hg/scripts/setup-web2py-ubuntu.sh
+chmod +x setup-web2py-ubuntu.sh
+sudo ./setup-web2py-ubuntu.sh
+

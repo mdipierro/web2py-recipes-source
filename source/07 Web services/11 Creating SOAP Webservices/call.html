@@ -1,0 +1,6 @@
+{{ extend "layout.html" }}
+{{=A("Index page", _href=URL(c="default", f="index"))}}
+<br />
+{{for tag in body:}}
+{{=tag}}
+{{pass}}

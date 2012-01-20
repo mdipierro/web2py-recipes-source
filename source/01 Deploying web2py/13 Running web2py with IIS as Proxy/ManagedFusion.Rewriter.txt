@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^yourdomain.com$ [NC]
+RewriteRule ^(.*)$ http://localhost:8000$1 [P,QSA,L]
+ 

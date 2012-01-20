@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+<div id="target"></div>
+
+<script>
+  jQuery.getJSON("{{=URL('call',args=['json','get_days'])}}",
+    function(msg){
+      jQuery.each(msg, function(){ jQuery("#target").append(this + "<br />"); } )
+    }
+  );
+</script>

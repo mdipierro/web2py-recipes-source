@@ -1,0 +1,36 @@
+easy_install scgi
+easy_install paste
+easy_install wsgitools
+
+$ nohup python ./scgihandler.py &
+
+
+# lighthttpd.conf
+
+server.modules += ( "mod_scgi" )
+server.document-root="/var/www/web2py/"
+# for >= linux-2.6
+server.event-handler = "linux-sysepoll"
+
+url.rewrite-once = (
+  "^(/.+?/static/.+)$" => "/applications$1",
+  "(^|/.*)$" => "/handler_web2py.scgi$1",
+)
+scgi.server = ( "/handler_web2py.scgi" =>
+  ("handler_web2py" =>
+     ( "host" => "127.0.0.1",
+       "port" => "4000",
+       "check-local" => "disable", # important!
+     )
+  )
+) 
+
+# end of lighthttpd.conf
+
+
+$ lighttpd -t -f lighttpd.conf
+
+$ lighttpd -D -f lighttpd.conf
+
+$ /etc/init.d/lighttpd start|stop|restart
+

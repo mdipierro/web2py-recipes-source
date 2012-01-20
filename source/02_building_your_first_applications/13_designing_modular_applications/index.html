@@ -1,0 +1,6 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{=LOAD('default', 'list_items', ajax = True, target = 'showitems')}}
+{{=A('create',component=URL('edit_item'),target='placeholder')}}
+<div id="placeholder"></div>

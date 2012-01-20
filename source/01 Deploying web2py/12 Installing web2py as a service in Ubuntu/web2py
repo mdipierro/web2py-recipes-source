@@ -1,0 +1,5 @@
+PIDDIR=/opt/$NAME
+DAEMON_DIR=/opt/$NAME
+APPLOG_FILE=$DAEMON_DIR/web2py.log
+DAEMON_ARGS="web2py.py -p 8001 -i 127.0.0.1 -c server.crt -k server.key -a<recycle> --nogui --pid_filename=$PIDFILE -l $APPLOG_FILE"
+ 

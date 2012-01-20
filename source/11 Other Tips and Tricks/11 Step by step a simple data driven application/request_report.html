@@ -1,0 +1,4 @@
+{{extend 'layout.html'}}
+{{=A("Zipcode breakdown", _href=URL(f="request_report", vars={"report_type": "zipcode_breakdown"}))}} - {{=A("Name breakdown", _href=URL(f="request_report", vars={"report_type": "name_breakdown"}))}}
+
+{{=reports}}

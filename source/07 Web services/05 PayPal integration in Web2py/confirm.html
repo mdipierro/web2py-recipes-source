@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+
+{{if data['status'] == 'SUCCESS':}}
+<p><h3>{{=T('Your order has been received.')}}</h3></p>
+<hr>
+<b>{{=T('Details')}}</b><br>
+<li>{{=T('Name:')}} {{=data['first_name']}} {{=data['last_name']}}</li>
+<li>{{=T('Purchases for event:')}}: {{=data['transaction_subject']}}</li>
+<li>{{=T('Amount')}}: {{=data['mc_currency']}} {{=data['mc_gross']}}</li>
+<hr>
+{{=form}}
+{{else:}}
+{{=T('No confirmation received from PayPal. This can be due to a number of reasons; please check your email to see if the transaction was successful.')}}
+{{pass}}
+
+{{=T('Your transaction has finished, you should receive an email of your purchase.')}}<br>
+{{=T('If you have an account at PayPal, you can check your transaction details at')}} <a href='https://www.paypal.es'>www.paypal.es</a>

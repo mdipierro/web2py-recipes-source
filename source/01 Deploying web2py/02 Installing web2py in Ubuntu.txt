@@ -1,0 +1,13 @@
+cd /home
+mkdir www-dev
+cd www-dev
+wget http://www.web2py.com/examples/static/web2py_src.zip 
+
+unzip -x web2py_src.zip
+
+sudo apt-get install python-tk
+
+cd web2py
+python web2py.py
+
+python web2py.py -i 127.0.0.1 -p 8000 -a mypassword --nogui
