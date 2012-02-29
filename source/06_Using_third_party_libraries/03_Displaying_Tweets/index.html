@@ -1,0 +1,12 @@
+{{left_sidebar_enabled=right_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+
+{{if TWITTER_HASH:}}
+<div class="frame">
+  <h3>
+    <img src={{=URL(c="static",f="images/twitter.png")}} 
+      ald="twitter"/> {{=T("%s Recent Tweets" % TWITTER_HASH)}}
+  </h3>
+      <div id="tweets">  {{=LOAD('default','twitter.load',ajax=True)}}</div>
+</div>
+{{pass}}

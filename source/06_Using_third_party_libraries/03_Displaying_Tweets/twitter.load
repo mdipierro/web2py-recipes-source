@@ -1,0 +1,8 @@
+﻿<OL>
+{{ for t in tweets: }}
+  <LI>
+  {{ =DIV(H5(t["from_user_name"])) }}
+  {{ =DIV(t["text"]) }}
+  </LI>
+{{ pass }}
+</OL>
